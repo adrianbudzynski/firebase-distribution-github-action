@@ -5,11 +5,14 @@
 
 ## Table of Contents
 
+- [Intro](#intro)
 - [Input parameters](#inputs)
 - [Outputs](#outputs)
 - [Setting Up Firebase Service Account](#setting-up-service-account)
 - [Usage](#usage)
 - [Sample usage](#sample-usage)
+
+## Intro
 
 > **Note:** This is a fork of [wzieba/Firebase-Distribution-Github-Action](https://github.com/wzieba/Firebase-Distribution-Github-Action). This action uses a Docker container image hosted at `ghcr.io/adrianbudzynski/firebase-distribution-github-action:latest`.
 
