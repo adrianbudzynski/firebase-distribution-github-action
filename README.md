@@ -145,8 +145,7 @@ This action uses Docker and requires either `serviceCredentialsFileContent` or `
 
 You can use:
 - `@latest` - Always uses the latest version (recommended for most cases)
-- `@v1` - Pins to a specific major version
-- `@v1.0.0` - Pins to a specific version tag
+- `@v1.0.1` - Pins to a specific version tag <a href="https://github.com/adrianbudzynski/firebase-distribution-github-action/releases">![](https://img.shields.io/github/v/release/adrianbudzynski/firebase-distribution-github-action)</a>
 
 ## Sample usage
 

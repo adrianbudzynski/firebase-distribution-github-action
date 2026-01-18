@@ -2,10 +2,10 @@ name: Sample workflow for Firebase Distribution action
 on:
   push:
     branches:
-      - master
+      - latest
   pull_request:
     branches:
-      - master
+      - latest
   workflow_dispatch:
 jobs:
   run:
