@@ -1,4 +1,4 @@
-name: 'Firebase App Distribution'
+name: 'Firebase App Distribution Deployment'
 description: 'GitHub Action that uploads artifacts to Firebase App Distribution'
 author: 'Wojciech Zięba <@wzieba>'
 inputs:
@@ -32,10 +32,10 @@ inputs:
   debug:
     description: 'Flag that can included to print verbose log output.'
     required: false
-    default: false
+    default: 'false'
 branding:
   color: 'orange'
   icon: 'send'
 runs:
   using: 'docker'
-  image: docker://ghcr.io/wzieba/firebase-distribution-github-action:sha-344aa66
+  image: docker://ghcr.io/adrianbudzynski/firebase-distribution-github-action:latest
