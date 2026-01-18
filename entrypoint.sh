@@ -20,8 +20,6 @@ fi
 RELEASE_NOTES=""
 RELEASE_NOTES_FILE=""
 
-TOKEN_DEPRECATED_WARNING_MESSAGE="⚠ This action will stop working with the next future major version of firebase-tools! Migrate to Service Account. See more: https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration"
-
 # Validate required inputs
 log "🔍 Validating required inputs..."
 if [[ -z "${INPUT_FILE}" ]]; then
@@ -102,14 +100,8 @@ if [ -n "${INPUT_SERVICECREDENTIALSFILECONTENT}" ] ; then
     fi
 fi
 
-if [ -n "${INPUT_TOKEN}" ] ; then
-    echo ${TOKEN_DEPRECATED_WARNING_MESSAGE}
-    export FIREBASE_TOKEN="${INPUT_TOKEN}"
-    log "⚠️  Using FIREBASE_TOKEN (deprecated - consider migrating to service account)"
-fi
-
-if [[ -z "${GOOGLE_APPLICATION_CREDENTIALS}" ]] && [[ -z "${FIREBASE_TOKEN}" ]]; then
-    log "❌ ERROR: No authentication method provided. Set either INPUT_SERVICECREDENTIALSFILE, INPUT_SERVICECREDENTIALSFILECONTENT, or INPUT_TOKEN"
+if [[ -z "${GOOGLE_APPLICATION_CREDENTIALS}" ]]; then
+    log "❌ ERROR: No authentication method provided. Set either INPUT_SERVICECREDENTIALSFILE or INPUT_SERVICECREDENTIALSFILECONTENT"
     exit 1
 fi
 

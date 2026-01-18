@@ -5,9 +5,6 @@ inputs:
   appId:
     description: 'App id can be found on the General Settings page'
     required: true
-  token:
-    description: 'Upload token - see Firebase CLI Reference'
-    required: false
   serviceCredentialsFile:
     description: 'Service credentials file'
     required: false

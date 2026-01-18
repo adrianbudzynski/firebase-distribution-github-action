@@ -21,14 +21,6 @@ This action uploads artifacts (.apk, .aab or .ipa) to Firebase App Distribution.
 
 **Required** App id can be found in the Firebase console in your Projects Settings, under Your apps. It is in the following format 1:1234567890123942955466829:android:1234567890abc123abc123
 
-### `token`
-
-⚠️ Deprecated! Don't use it. Firebase team deprecated this option and it will soon be removed.
-
-Use `serviceCredentialsFileContent` instead.
-
-~**Required** Upload token - see Firebase CLI Reference (tldr; run `firebase login:ci` command to get your token).~
-
 ### `serviceCredentialsFileContent`
 **Required** Content of Service Credentials private key JSON file.
 
@@ -144,7 +136,7 @@ This action requires a service account with proper permissions to upload builds 
 
 ## Usage
 
-This action uses Docker and requires either `serviceCredentialsFileContent` or `serviceCredentialsFile` for authentication. The `token` input is deprecated and should not be used.
+This action uses Docker and requires either `serviceCredentialsFileContent` or `serviceCredentialsFile` for authentication.
 
 ### Versioning
 
