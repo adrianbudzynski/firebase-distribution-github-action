@@ -58,7 +58,7 @@ jobs:
           encodedString: ${{ secrets.CREDENTIAL_FILE }}
           fileName: 'credential_file.json'
       - name: Move credential file to repository location
-        run: mv ${{ steps.fetch_credential_file.outputs.filePath }} /home/runner/work/Firebase-Distribution-Github-Action/Firebase-Distribution-Github-Action/
+        run: mv ${{ steps.fetch_credential_file.outputs.filePath }} ${{ github.workspace }}/
       - name: Upload artifact to Firebase Distribution using credential file
         uses: ./
         with:
