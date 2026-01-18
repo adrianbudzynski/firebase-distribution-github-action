@@ -1,9 +1,11 @@
 # Firebase App Distribution Github Action
 
-<a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/actions">![](https://github.com/wzieba/Firebase-Distribution-Github-Action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)</a>
-<a href="https://github.com/wzieba/Firebase-Distribution-Github-Action/releases">![](https://img.shields.io/github/v/release/wzieba/Firebase-Distribution-Github-Action)</a>
+<a href="https://github.com/adrianbudzynski/firebase-distribution-github-action/actions">![](https://github.com/adrianbudzynski/firebase-distribution-github-action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)</a>
+<a href="https://github.com/adrianbudzynski/firebase-distribution-github-action/releases">![](https://img.shields.io/github/v/release/adrianbudzynski/firebase-distribution-github-action)</a>
 
-This action uploads artifacts (.apk,.aab or .ipa) to Firebase App Distribution.
+> **Note:** This is a fork of [wzieba/Firebase-Distribution-Github-Action](https://github.com/wzieba/Firebase-Distribution-Github-Action). This action uses a Docker container image hosted at `ghcr.io/adrianbudzynski/firebase-distribution-github-action:latest`.
+
+This action uploads artifacts (.apk, .aab or .ipa) to Firebase App Distribution.
 
 ## Inputs
 
@@ -15,17 +17,18 @@ This action uploads artifacts (.apk,.aab or .ipa) to Firebase App Distribution.
 
 ⚠️ Deprecated! Don't use it. Firebase team deprecated this option and it will soon be removed.
 
-Use `serviceCredentialsFileContent` instead. [Learn here how to generate one](https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration).
+Use `serviceCredentialsFileContent` instead.
 
 ~**Required** Upload token - see Firebase CLI Reference (tldr; run `firebase login:ci` command to get your token).~
 
 ### `serviceCredentialsFileContent`
-**Required** Content of Service Credentials private key JSON file. [Learn here how to generate one](https://github.com/wzieba/Firebase-Distribution-Github-Action/wiki/FIREBASE_TOKEN-migration).
+**Required** Content of Service Credentials private key JSON file.
 
 ### `serviceCredentialsFile`
 
-**Required** Service Credentials File - The path or HTTP URL to your Service Account private key JSON file.
-Required only if you don't use `serviceCredentialsFileContent`.
+Service Credentials File - The path or HTTP URL to your Service Account private key JSON file.
+
+**Required** only if you don't use `serviceCredentialsFileContent`.
 
 ### `file`
 
@@ -33,15 +36,15 @@ Required only if you don't use `serviceCredentialsFileContent`.
 
 ### `groups`
 
-Distribution groups
+Distribution groups. Comma-separated list of group names.
 
 ### `testers`
 
-Distribution testers. The email address of the testers you want to invite.
+Distribution testers. Comma-separated list of email addresses of the testers you want to invite.
 
 ### `releaseNotes`
 
-Release notes visible on release page. If not specified, plugin will add last commit's
+Release notes visible on release page. If not specified, the action will automatically extract the last commit's:
  - hash
  - author
  - message
@@ -52,7 +55,7 @@ Specify the release note path to a plain text file.
 
 ### `debug`
 
-Flag that can be included to print verbose log output. Default value is `false`
+Flag to enable verbose log output. Set to `true` to print detailed debugging information. Default value is `false`.
 
 ## Outputs
 
@@ -68,28 +71,38 @@ Link to share release with testers who have access.
 
 Link to download the release binary (link expires in 1 hour).
 
+## Usage
+
+This action uses Docker and requires either `serviceCredentialsFileContent` or `serviceCredentialsFile` for authentication. The `token` input is deprecated and should not be used.
+
+### Versioning
+
+You can use:
+- `@latest` - Always uses the latest version (recommended for most cases)
+- `@v1` - Pins to a specific major version
+- `@v1.0.0` - Pins to a specific version tag
+
 ## Sample usage
 
-```
+```yaml
 name: Build & upload to Firebase App Distribution 
 
 on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
     - name: set up JDK 1.8
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v4
       with:
-        java-version: 1.8
+        java-version: '8'
     - name: build release 
       run: ./gradlew assembleRelease
     - name: upload artifact to Firebase App Distribution
-      uses: wzieba/Firebase-Distribution-Github-Action@v1
+      uses: adrianbudzynski/firebase-distribution-github-action@latest
       with:
         appId: ${{secrets.FIREBASE_APP_ID}}
         serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
