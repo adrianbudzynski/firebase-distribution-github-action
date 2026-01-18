@@ -75,18 +75,25 @@ fi
 # Handle service credentials
 log "🔐 Configuring authentication..."
 if [ -n "${INPUT_SERVICECREDENTIALSFILE}" ] ; then
-    if [[ -f "${INPUT_SERVICECREDENTIALSFILE}" ]]; then
-        export GOOGLE_APPLICATION_CREDENTIALS="${INPUT_SERVICECREDENTIALSFILE}"
-        log "✅ Using service credentials file: ${INPUT_SERVICECREDENTIALSFILE}"
-    else
+    if [[ ! -f "${INPUT_SERVICECREDENTIALSFILE}" ]]; then
         log "❌ ERROR: Service credentials file not found: ${INPUT_SERVICECREDENTIALSFILE}"
         exit 1
     fi
+    if [[ ! -s "${INPUT_SERVICECREDENTIALSFILE}" ]]; then
+        log "❌ ERROR: Service credentials file is empty: ${INPUT_SERVICECREDENTIALSFILE}"
+        exit 1
+    fi
+    export GOOGLE_APPLICATION_CREDENTIALS="${INPUT_SERVICECREDENTIALSFILE}"
+    log "✅ Using service credentials file: ${INPUT_SERVICECREDENTIALSFILE}"
 fi
 
 if [ -n "${INPUT_SERVICECREDENTIALSFILECONTENT}" ] ; then
     log "   Creating service credentials from content"
     if cat <<< "${INPUT_SERVICECREDENTIALSFILECONTENT}" > service_credentials_content.json; then
+        if [[ ! -s "service_credentials_content.json" ]]; then
+            log "❌ ERROR: Created service credentials file is empty"
+            exit 1
+        fi
         export GOOGLE_APPLICATION_CREDENTIALS="service_credentials_content.json"
         log "✅ Service credentials file created from content"
     else
