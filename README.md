@@ -71,6 +71,69 @@ Link to share release with testers who have access.
 
 Link to download the release binary (link expires in 1 hour).
 
+## Setting Up Service Account
+
+This action requires a service account with proper permissions to upload builds to Firebase App Distribution. Follow these steps to create and configure a service account:
+
+### Step 1: Access Google Cloud Console
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Select your Firebase project
+
+### Step 2: Create Service Account
+
+1. Navigate to **IAM & Admin** → **Service Accounts**
+   - Direct link: https://console.cloud.google.com/iam-admin/serviceaccounts
+2. Click **Create Service Account**
+3. Fill in the details:
+   - **Service account name**: e.g., `firebase-app-distribution`
+   - **Service account ID**: auto-generated (or customize)
+   - **Description**: e.g., "Service account for Firebase App Distribution CI/CD"
+4. Click **Create and Continue**
+
+### Step 3: Grant Required Permissions
+
+1. In the **Grant this service account access to project** section, click **Add Another Role**
+2. Search for and select **Firebase App Distribution Admin** (`roles/firebaseappdistro.admin`)
+   - ⚠️ **Important**: This role is required for uploading builds. The Viewer role is not sufficient.
+3. Click **Continue**, then **Done**
+
+> **Note**: If the role doesn't appear in the dropdown, you can grant it manually:
+> - Go to **IAM & Admin** → **IAM**
+> - Find your service account and click **Edit**
+> - Click **Add Another Role** and search for `firebaseappdistro.admin`
+
+### Step 4: Create and Download JSON Key
+
+1. Click on the service account you just created
+2. Go to the **Keys** tab
+3. Click **Add Key** → **Create new key**
+4. Select **JSON** format
+5. Click **Create** (this will download the JSON key file)
+
+### Step 5: Store Credentials in GitHub Secrets
+
+1. Open the downloaded JSON file and copy its entire contents
+2. Go to your GitHub repository → **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret**
+4. Create a secret named `FIREBASE_SERVICE_ACCOUNT_KEY` (or `CREDENTIAL_FILE_CONTENT` as shown in the example)
+5. Paste the entire JSON file content as the value
+6. Click **Add secret**
+
+### Step 6: Get Your App ID
+
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Select your project
+3. Go to **Project Settings** (gear icon) → **Your apps**
+4. Find your app and copy the **App ID** (format: `1:1234567890123942955466829:android:1234567890abc123abc123`)
+5. Create a GitHub secret named `FIREBASE_APP_ID` with this value
+
+### Troubleshooting
+
+- **403 Permission Denied**: Ensure the service account has the `roles/firebaseappdistro.admin` role assigned
+- **Role not found**: You need Owner or IAM Admin permissions on the project to create service accounts and assign roles
+- **Wrong App ID**: Verify the `appId` matches your Firebase app ID from Project Settings
+
 ## Usage
 
 This action uses Docker and requires either `serviceCredentialsFileContent` or `serviceCredentialsFile` for authentication. The `token` input is deprecated and should not be used.
