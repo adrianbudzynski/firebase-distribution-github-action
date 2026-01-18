@@ -8,14 +8,14 @@ jobs:
         uses: actions/checkout@master
       - name: Get sample .apk for test purposes
         # https://github.com/saucelabs/my-demo-app-android
-        run: wget https://github.com/saucelabs/my-demo-app-android/releases/download/2.2.0/mda-2.2.0-25.apk
+        run: wget -O demo.apk https://github.com/saucelabs/my-demo-app-android/releases/download/2.2.0/mda-2.2.0-25.apk
       - name: Upload artifact to Firebase Distribution
         id: testing_outputs
         uses: ./
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           groups: Testers
-          file: ApiDemos-debug.apk
+          file: demo.apk
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Assert outputs of previous step are not empty
         run: |
@@ -40,7 +40,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           groups: Testers
           releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
+          file: demo.apk
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Upload artifact to Firebase Distribution with debug
         uses: ./
@@ -48,7 +48,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           groups: Testers
           releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
+          file: demo.apk
           debug: true
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Fetch credential file from secrets
@@ -65,7 +65,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           groups: Testers
           releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
+          file: demo.apk
           debug: true
           serviceCredentialsFile: credential_file.json
       - name: Upload artifact to Firebase Distribution using credential file content
@@ -74,7 +74,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           groups: Testers
           releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
+          file: demo.apk
           debug: true
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Upload artifact to Firebase Distribution with testers
@@ -83,7 +83,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           testers: "test@test.com, test2@test2.com"
           releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
+          file: demo.apk
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Failure during upload should set failure in action step
         id: fail_check
@@ -93,7 +93,7 @@ jobs:
           appId: invalid_app_id
           testers: "test@test.com, test2@test2.com"
           releaseNotesFile: README.md
-          file: ApiDemos-debug.apk
+          file: demo.apk
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Check if previous step failed as expected
         run: |
