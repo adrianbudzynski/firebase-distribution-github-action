@@ -3,6 +3,14 @@
 <a href="https://github.com/adrianbudzynski/firebase-distribution-github-action/actions">![](https://github.com/adrianbudzynski/firebase-distribution-github-action/workflows/Sample%20workflow%20for%20Firebase%20Distribution%20action/badge.svg)</a>
 <a href="https://github.com/adrianbudzynski/firebase-distribution-github-action/releases">![](https://img.shields.io/github/v/release/adrianbudzynski/firebase-distribution-github-action)</a>
 
+## Table of Contents
+
+- [Input parameters](#inputs)
+- [Outputs](#outputs)
+- [Setting Up Firebase Service Account](#setting-up-service-account)
+- [Usage](#usage)
+- [Sample usage](#sample-usage)
+
 > **Note:** This is a fork of [wzieba/Firebase-Distribution-Github-Action](https://github.com/wzieba/Firebase-Distribution-Github-Action). This action uses a Docker container image hosted at `ghcr.io/adrianbudzynski/firebase-distribution-github-action:latest`.
 
 This action uploads artifacts (.apk, .aab or .ipa) to Firebase App Distribution.
