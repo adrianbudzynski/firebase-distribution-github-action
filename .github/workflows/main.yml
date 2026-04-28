@@ -60,7 +60,7 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
       - name: Fetch credential file from secrets
         id: fetch_credential_file
-        uses: timheuer/base64-to-file@v1
+        uses: timheuer/base64-to-file@v2
         with:
           encodedString: ${{ secrets.CREDENTIAL_FILE }}
           fileName: 'credential_file.json'
